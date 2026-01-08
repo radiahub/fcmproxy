@@ -82,7 +82,49 @@ Like in the example above, do not forget that the location should be URL-encoded
 
 ## Download and bind script fcmproxy.js
 
-Download fcmproxy.js
+### Download from GitHub
+
+- Download fcmproxy.js [download here](https://github.com/radiahub/fcmproxy/blob/main/js/fcmproxy.js)
+- Clone fcmproxy repository [clone](https://github.com/radiahub/fcmproxy/tree/main)
+
+### Bind script
+
+Example (minimized JavaScript file):
+
+```html
+<script src="fcmproxy.min.js"></script>
+```
+
+Binding script fcmproxy.js exposes a new object: fcmproxy
+
+### Initialize fcmproxy object
+
+call fcmproxy.init() as early as possible in your initialization script
+
+Trivial examples:
+
+```html
+<html>
+	<head>
+		...
+		<script src="fcmproxy.min.js"></script>
+		...
+	</head>
+	<body onload="fcmproxy.init();">
+		...
+	</body>
+</html>
+```
+
+At the end of body section:
+
+```html
+<body>
+	...
+	<script src="fcmproxy.min.js"></script>
+	<script>fcmproxy.init();</script>
+</body>
+```
 
 <br>&nbsp;</br>
 
