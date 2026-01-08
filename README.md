@@ -4,6 +4,9 @@ Free iframe-based proxy for easy Firebase Cloud Messaging instant messaging inte
 This FREE module enables Firebase Cloud Messaging on most web sites, based on radiahub-105 Firebase Project.
 <br>&nbsp;</br>
 
+Licensed under [MIT License](https://github.com/radiahub/fcmproxy?tab=MIT-1-ov-file)
+<br>&nbsp;</br>
+
 
 ## Advantages
 
@@ -73,7 +76,13 @@ window.document.location = "http://radiahub.22web.org/fcmproxy.php?apikey=123456
 </html>
 ```
 
+<b>Important</b><br/>
 Like in the example above, do not forget that the location should be URL-encoded according to the script language in use (here, html and JavaScript)
+<br>&nbsp;</br>
+
+## Download and bind script fcmproxy.js
+
+Download 
 <br>&nbsp;</br>
 
 
@@ -97,4 +106,6 @@ The free applications are not only productive tools (just use them, they are fre
 </table>
 
 <br>&nbsp;</br>
-<h5>Copyright &copy; radiahub Denis Auguste Patrice 2026 - All rights reserved</h5>
+
+---
+Copyright &copy; radiahub Denis Auguste Patrice 2026 - All rights reserved
