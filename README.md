@@ -82,7 +82,8 @@ Like in the example above, do not forget that the location should be URL-encoded
 
 ## Download and bind script fcmproxy.js
 
-Download 
+Download fcmproxy.js
+
 <br>&nbsp;</br>
 
 
