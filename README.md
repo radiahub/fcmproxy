@@ -17,21 +17,27 @@ These policies are configurable on most premium hosting service providers, in wh
 Licensed under [MIT License](https://github.com/radiahub/fcmproxy?tab=MIT-1-ov-file)
 <br>&nbsp;
 
-## Table of Contents<br>
+# Table of Contents<br>
 
 - [Table of Contents](#table-of-contents)
-- [Advantages](#advantages)
-- [Pre-requisites](#pre-requisites)
-- [Referencing FCM tokens](#referencing-fcm-tokens)
+- [Presentation](#presentation)
+	- [Advantages](#advantages)
+	- [Pre-requisites](#pre-requisites)
+	- [Referencing FCM tokens](#referencing-fcm-tokens)
+	- [radiahub message format](#radiahub-message-format)
 - [Integration of your web site](#integration-of-your-web-site)
-- [Download and bind script fcmproxy.js](#download-and-bind-script-fcmproxyjs)
-	- [Download from GitHub](#download-from-github)
-	- [Bind script](#bind-script)
-	- [Initialize fcmproxy object](#initialize-fcmproxy-object)
-- [Free code and free applications: showcases catching your attention!](#free-code-and-free-applications-showcases-catching-your-attention)
-- [API to register FCM tokens manually](#api-to-register-fcm-tokens-manually)
-- [API to delete FCM token references manually (unreg (PIN,token) pairs)](#api-to-delete-fcm-token-references-manually-unreg-pintoken-pairs)
-- [radiahub public repositories on GitHub](#radiahub-public-repositories-on-github)
+	- [Download and bind script fcmproxy.js](#download-and-bind-script-fcmproxyjs)
+		- [Download from GitHub repository](#download-from-github-repository)
+		- [Bind script](#bind-script)
+		- [Initialize fcmproxy object](#initialize-fcmproxy-object)
+	- [Free code and free applications: showcases catching your attention!](#free-code-and-free-applications-showcases-catching-your-attention)
+	- [API to register FCM tokens manually](#api-to-register-fcm-tokens-manually)
+	- [API to delete FCM token references manually (unreg (PIN,token) pairs)](#api-to-delete-fcm-token-references-manually-unreg-pintoken-pairs)
+	- [radiahub public repositories on GitHub](#radiahub-public-repositories-on-github)
+
+<br>
+
+# Presentation
 
 <br>
 
@@ -68,7 +74,13 @@ The API keys obtained at user registration are no PINs.
 
 <br>
 
-## Integration of your web site
+## radiahub message format
+
+The fcmproxy API enforces the radiahub message format structure
+
+<br>
+
+# Integration of your web site
 
 You must embed your web site in radiahub proxy application, which provides a full-screen iframe in which your web site will run.
 
@@ -124,7 +136,7 @@ Like in the example above, do not forget that the location should be URL-encoded
 
 ## Download and bind script fcmproxy.js
 
-### Download from GitHub
+### Download from GitHub repository
 
 - Download fcmproxy.js [download here](https://github.com/radiahub/fcmproxy/blob/main/js/fcmproxy.js)
 - Clone fcmproxy repository [clone](https://github.com/radiahub/fcmproxy/tree/main)
