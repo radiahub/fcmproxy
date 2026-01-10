@@ -70,7 +70,20 @@ var fcmproxy = {
 		if (typeof onmessage_callback === "function") {
 			fcmproxy.onmessage_callback = onmessage_callback;
 		}
+	},
+
+	reg : function(onmessage_callback) {
+		console.info("IN fcmproxy.reg()");
+		if (typeof onmessage_callback === "function") {
+			fcmproxy.onmessage_callback = onmessage_callback;
+		}
+	},
+
+	unreg : function() {
+		console.info("IN fcmproxy.reg()");
+		fcmproxy.onmessage_callback = null;
 	}
+
 };
 
 

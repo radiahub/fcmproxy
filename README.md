@@ -1,21 +1,59 @@
 <h1>FCMPROXY</h1>
 
-Free iframe-based proxy for easy Firebase Cloud Messaging instant messaging integration, allowing instant messaging between applications using FCM.
+Google Firebase Cloud Messaging (FCM) is Google's **cross-platform service** for sending **instant data messages** and notifications.
 
-This FREE (*) module allows most web sites (**) to use Firebase Cloud Messaging. It is based on developments realized in the frame of the radiahub-105 Firebase Project. The client part of the source code is available on [GitHub](#radiahub-public-repositories-on-github)
+Key features:
+
+- Cross-platform delivery: works across to apps, across Android, iOS, and **web apps**,
+- Notification messages supporting store-and-forward (User chat via instant messenging, etc.)
+- Data Messages (data syncing, Inter-Process communication, etc.)
+- Uses a server based, reliable API.
+
+FCMPROXY is a **Free** iframe-based proxy solution for easy integration of Google Firebase Cloud Messaging.
+
+This **FREE** (*) module allows most web sites (**) to use Firebase Cloud Messaging. It is based on developments realized in the frame of the radiahub-105 Firebase Project and is one of the front-ends using the FCM server API deployed on  [radiahub server](https://radiahub/22web.org/)
+
+The client part of the source code is available on [GitHub](#radiahub-public-repositories-on-github)
+
+More about Google FCM on [wikipedia](https://en.wikipedia.org/wiki/Firebase_Cloud_Messaging)
+
+<br>
+
+Licensed under [MIT License](https://github.com/radiahub/fcmproxy?tab=MIT-1-ov-file)
+
+<br>
+
+---
+
+<br>
 
 (*)
 FCMPROXY is free for all users (private, corporate), provided the user has registered to radiahub services and obtained an API key.
 
+<br>
+
 (**)
-**Important**: 
+**Important**:<br>
+Most free hosting service providers protect automatically and in a non-configurable way the hosted web sites, by:
 
-most free hosting service providers attempt to protect automatically, in a non-configurable way, the hosted web sites by denying CORS (Cross-Origin Resources Sharing) or/and enforcing a strict Same Origin Policy, both preventing the launch of their web page in an IFrame.
-These policies are configurable on most premium hosting service providers, in which case it should be possible to authorize the service to interact specifically with the subdomain radiahub.22web.org while keeping the other service security settings to ensure a maximum data security.
+- Denying CORS (Cross-Origin Resources Sharing),
+- Enforcing a strict Same Origin Policy, 
+
+both actions will prevent the launching of their hosted web pages in an IFrame.
+
+These policies are configurable on most premium hosting service providers, in which case it should be possible to authorize the service to interact specifically with the subdomain radiahub.22web.org while your other service retain their respective security settings.
+
+<br>
+
+Denis can assist you to integrate Google Firebase Cloud Messaging by deploying a dedicated front-end to FCM on your web app, or by developing a bespoke solution taylored to your needs:
 
 
-Licensed under [MIT License](https://github.com/radiahub/fcmproxy?tab=MIT-1-ov-file)
+[contact Denis](https://radiahub.22web.org/?run=&view=contact)
+
+[Hire me](https://radiahub.22web.org/?run=&view=hire_me)
+
 <br>&nbsp;
+<br>
 
 # Table of Contents<br>
 
@@ -29,17 +67,21 @@ Licensed under [MIT License](https://github.com/radiahub/fcmproxy?tab=MIT-1-ov-f
 	- [Download and bind script fcmproxy.js](#download-and-bind-script-fcmproxyjs)
 		- [Download from GitHub repository](#download-from-github-repository)
 		- [Bind script](#bind-script)
-		- [Initialize fcmproxy object](#initialize-fcmproxy-object)
-	- [Free code and free applications: showcases catching your attention!](#free-code-and-free-applications-showcases-catching-your-attention)
-	- [API to register FCM tokens manually](#api-to-register-fcm-tokens-manually)
-	- [API to delete FCM token references manually (unreg (PIN,token) pairs)](#api-to-delete-fcm-token-references-manually-unreg-pintoken-pairs)
-	- [radiahub public repositories on GitHub](#radiahub-public-repositories-on-github)
+	- [Initialize fcmproxy object](#initialize-fcmproxy-object)
+- [FCMPROXY reference](#fcmproxy-reference)
+	- [Bind fcmproxy to your website](#bind-fcmproxy-to-your-website)
+	- [fcmproxy object properties](#fcmproxy-object-properties)
+- [Free code and free applications are **showcases** catching your attention!](#free-code-and-free-applications-are-showcases-catching-your-attention)
+- [API for manual handling of FCM tokens](#api-for-manual-handling-of-fcm-tokens)
+	- [Register FCM token](#register-fcm-token)
+	- [Unregister FCM token](#unregister-fcm-token)
+- [radiahub public repositories on GitHub](#radiahub-public-repositories-on-github)
 
+<br>&nbsp;
 <br>
 
 # Presentation
 
-<br>
 
 ## Advantages
 
@@ -50,7 +92,6 @@ Licensed under [MIT License](https://github.com/radiahub/fcmproxy?tab=MIT-1-ov-f
 - Front-end to your application based on pure JavaScript (asynchronous), does not require additional extensions,
 - Use FCMPROXY to communicate with instant messages through various devices and platforms (web pages, Android apps, IOS apps, etc.) within radiahub or with other applications (why not your application?)
 
-<br>
 
 ## Pre-requisites
 
@@ -60,31 +101,64 @@ Licensed under [MIT License](https://github.com/radiahub/fcmproxy?tab=MIT-1-ov-f
 	- [using Google Forms](https://docs.google.com/forms/d/e/1FAIpQLSfxhndoVHp21zhWzkvZysKdd58_5FXRy3CM_K9KMDqVJbyRcw/viewform?usp=publish-editor)
 	- using radiahub authenticator application [download here](https://drive.google.com/file/d/1WHfBoQ9xZBG2Xk2PTTI4_TTjDC3LDm-V/view?usp=drive_link)
 
-<br>
 
 ## Referencing FCM tokens
 
 Device applications are uniquely identified by an FCM token generated by Google API.
 For security reasons, these tokens are not visible on FCMPROXY.
-PIN are generated by radiahub to reference the FCM token generated by Google API.
+Instead, an 8-digits string (FCMKEY) is generated by radiahub to reference the Google FCM token.
 
-**Important**:
-
-The API keys obtained at user registration are no PINs.
-
-<br>
 
 ## radiahub message format
 
-The fcmproxy API enforces the radiahub message format structure
+FCMPROXY API uses the following radiahub message format structure for sending and receiving messages:
 
+Format:	JSON, JavaScript **plain** object
+
+```javascript
+var message = { 
+	dataType: "some_data_type_string", 
+	data: "Some_string_or_javascript_object"
+}
+```
+
+Example:
+
+```javascript
+var message = { 
+	dataType: "SELF_TEST", 
+	data: {name:"Denis", lastname:"Auguste", instant:datetime.sql() }
+}
+```
+
+For more information, please refer to [Initialize fcmproxy object](#initialize-fcmproxy-object) and [FCMPROXY reference](#fcmproxy-reference)
+
+<br>
+
+**Notices**: 
+
+it is up to the receiving application to understand and process the parameters defined by the pair(dataType, data).
+
+It is possible to send binary data (like file content) using this message format, provided:
+
+- The binary data is dataURL-encoded (safest way),
+- The total size of the message buffer is under 4KB
+
+Exchanging files is possible:
+
+1. Sender uploads the file to some server,
+2. Sender sends the URL of the upload or some identifier referencing it via FCM/PCMPROXY to Receiver,
+3. Receiver downloads from the server.
+
+
+<br>&nbsp;
 <br>
 
 # Integration of your web site
 
 You must embed your web site in radiahub proxy application, which provides a full-screen iframe in which your web site will run.
 
-URL			: http://radiahub.22web.org/fcmproxy.php
+URL	: ```http://radiahub.22web.org/fcmproxy.php```
 
 Method	: GET (preferred)
 
@@ -138,8 +212,8 @@ Like in the example above, do not forget that the location should be URL-encoded
 
 ### Download from GitHub repository
 
-- Download fcmproxy.js [download here](https://github.com/radiahub/fcmproxy/blob/main/js/fcmproxy.js)
-- Clone fcmproxy repository [clone](https://github.com/radiahub/fcmproxy/tree/main)
+- [Download](https://github.com/radiahub/fcmproxy/blob/main/js/fcmproxy.js) fcmproxy.js
+- [Clone](https://github.com/radiahub/fcmproxy/tree/main) GitHub repository
 
 ### Bind script
 
@@ -151,9 +225,11 @@ Example (minimized JavaScript file):
 
 Binding script fcmproxy.js exposes a new object: fcmproxy
 
-### Initialize fcmproxy object
+<br>
 
-call fcmproxy.init() as early as possible in your initialization script
+## Initialize fcmproxy object
+
+call fcmproxy.init() as early as possible in your initialization script to register your callback function processing the **INCOMING** FCMPROXY messages.
 
 Trivial examples:
 
@@ -163,39 +239,121 @@ Trivial examples:
 		...
 		<script src="fcmproxy.min.js"></script>
 		...
+		<script>
+			const on_fcm_incoming_message = function(dataType, data) {
+				console.info("IN on_fcm_incoming_message() dataType='" + dataType + "'");
+				switch(dataType) {
+					case "..." : {
+						...
+						break;
+					}
+				}
+			};
+		</script>
 	</head>
-	<body onload="fcmproxy.init();">
+	<body onload="fcmproxy.init(on_fcm_incoming_message);">
 		...
 	</body>
 </html>
 ```
 
-At the end of body section:
+<br>
+
+[More in the next section](#fcmproxy-reference) about fcmproxy.init(), fcmproxy.reg(), fcmproxy.unreg() managing the registration of callback processing the **INCOMING** FCMPROXY messages.
+
+<br>&nbsp;
+<br>
+
+# FCMPROXY reference
+
+## Bind fcmproxy to your website
 
 ```html
-<body>
-	...
-	<script src="fcmproxy.min.js"></script>
-	<script>fcmproxy.init();</script>
-</body>
+<script src="[path_to_lib/fcmproxy/]fcmproxy.min.js"></script>
 ```
+
+Binding the JavaScript script exposes the fcmproxy object having following properties:
+
+## fcmproxy object properties
+
+fcmkey
+
+callback
+
+onmessage
+
+onload
+
+sendFCMmessage
+
+init
+
+reg
+
+unreg
 
 <br>
 
-## Free code and free applications: showcases catching your attention!
+**Notice**:
+
+The source code of the fcmproxy object is available on [GitHub](https://github.com/radiahub/fcmproxy)   
+
+
+<br>&nbsp;
+<br>
+
+# Free code and free applications are **showcases** catching your attention!
 
 This is definitively the primary goal!
 The free applications are not only productive tools (just use them, they are free!), they introduce a little part of my commitment and my development work to you, with the hope that you will consider extending these applications to your specific needs, or develop your own software solution.
 
+
+<br>&nbsp;
 <br>
 
-## API to register FCM tokens manually
+# API for manual handling of FCM tokens
 
-This token-centric API registers tokens as created by Google Firebase Cloud Messaging for target identification and generate for each token associated FCMKEY.
+**All radiahub** applications (websites and Android apps) 
+
+- **automatically register** FCM tokens,
+- **expose** the associated FCMKEYs to other application using setting pages, qr-codes, etc. when needed.
+
+**FCMPROXY** exposes the FCMKEY associated to your web application's instance as ```fcmproxy.FCMKEY``` object property.
+
+Nevertheless, while you develop your own application using FCMPROXY, you may want to 
+
+- Register manually some FCM tokens and generate their associated FCMKEYs,
+- Unregister those tokens when needed.
+
+This API may be handy for this purpose.
+
+<br>
+
+**Important:**
+
+To use this API, you must register for an API key 
+
+	- at web page http://radiahub.22web.org/
+	- [using Google Forms](https://docs.google.com/forms/d/e/1FAIpQLSfxhndoVHp21zhWzkvZysKdd58_5FXRy3CM_K9KMDqVJbyRcw/viewform?usp=publish-editor),
+	- using radiahub authenticator application [download here](https://drive.google.com/file/d/1WHfBoQ9xZBG2Xk2PTTI4_TTjDC3LDm-V/view?usp=drive_link)
+
+Notice that, as an attempt to discourage automatized token registration, this API is returning its result into an HTML page (free version only).
+
+**Beware!**
+
+The total number of registered FCM tokens, which can be manually registered using this API (and thus the number of manually created PINs) is limited to **10 tokens per API key** for the free version.
+
+If you need to register more tokens, please feel free to [contact me here](https://radiahub.22web.org/?run=&view=contact)
+
+<br>
+
+## Register FCM token
+
+This token-centric API registers tokens as created by Google Firebase Cloud Messaging for target identification and generates for each token the associated FCMKEY.
 
 The URL points to a WEB page located at
 
-URL			: https://radiahub.22web.org/fcmproxy.php?do=fcmreg&apikey=[your API key]&token=[token]&pin=[pin]
+URL			: https://radiahub.22web.org/fcmproxy.php?do=fcmreg&apikey=[your_API_key]&token=[token]
 
 Method	: GET (preferred)
 
@@ -220,16 +378,19 @@ Parameters (GET)
 		<td>142 alphanumeric code, ex fjEKD5DSaVUUu0fJHyhz5e:APA91bGaKoQfcw_ ... 4-D2JcXl9aayUjJY3sst9wESH0</td>
 		<td>Mandatory</td>
 	</tr>
-	<tr>
-		<td>pin</td>
-		<td>The radiahub PIN associated to the FCM token</td>
-		<td>8-digits PIN value, ex 12345678</td>
-		<td>Optional: if set and if and only if no entry for this PIN exists, a new pair (PIN, token) entry will be generated</td>
-	</tr>
 </table>
 
 
 Return value (JSON format)
+
+```json
+{
+	"errno"   : 1000,
+	"errstr"  : "SUCCESS",
+	"instant" : "2026-01-08 21:11:42",
+	"PIN"     : "90933949"
+}
+```
 
 <table>
 	<tr>
@@ -259,28 +420,10 @@ Return value (JSON format)
 	</tr>
 </table>
 
-Example
-
-Request
-
-```
-https://radiahub.22web.org/fcmproxy.php?do=fcmreg&apikey=12345678&token=fjEKD5DSaVUUu0fJHyhz5e:APA91bGaKoQfcw_ ... 4-D2JcXl9aayUjJY3sst9wESH0
-```
-
-Response
-
-```json
-{
-	"errno"   : 1000,
-	"errstr"  : "SUCCESS",
-	"instant" : "2026-01-08 21:11:42",
-	"PIN"     : "90933949"
-}
-```
 
 <br>
 
-## API to delete FCM token references manually (unreg (PIN,token) pairs)
+## Unregister FCM token
 
 This token-centric API deletes a (PIN,token) pair based on the values of tokens as created by Google Firebase Cloud Messaging.
 
@@ -316,6 +459,14 @@ Parameters (GET)
 
 Return value (JSON format)
 
+```json
+{
+	"errno"   : 1000,
+	"errstr"  : "SUCCESS",
+	"instant" : "2026-01-08 21:11:42"
+}
+```
+
 <table>
 	<tr>
 		<th>Name</th>
@@ -339,27 +490,11 @@ Return value (JSON format)
 	</tr>
 </table>
 
-Example
 
-Request
-
-```
-https://radiahub.22web.org/fcmproxy.php?do=fcmunreg&apikey=12345678&token=fjEKD5DSaVUUu0fJHyhz5e:APA91bGaKoQfcw_ ... 4-D2JcXl9aayUjJY3sst9wESH0
-```
-
-Response
-
-```json
-{
-	"errno"   : 1000,
-	"errstr"  : "SUCCESS",
-	"instant" : "2026-01-08 21:11:42"
-}
-```
-
+<br>&nbsp;
 <br>
 
-## radiahub public repositories on GitHub
+# radiahub public repositories on GitHub
 
 <table>
 	<tr>
